@@ -36,6 +36,7 @@ getCountryData('israel')
 getCountryData('USA')
 */
 
+/*
 const renderCountry = function(data, className = '') {
     const html = `
     <article class="country ${className}">
@@ -88,8 +89,10 @@ const getCountryAndNeighbour = function(country) {
 
 getCountryAndNeighbour('usa')
     // getCountryAndNeighbour('israel')
+*/
 
 
+/*
 //* CallBack Hell
 setTimeout(() => {
     console.log('1 second passed')
@@ -103,3 +106,14 @@ setTimeout(() => {
         }, 1000)
     }, 1000)
 }, 1000)
+*/
+
+//* Promises and the fetch API
+//The Promise object represents the eventual completion (or failure) of an asynchronous operation and its resulting value.
+
+// const request = new XMLHttpRequest()
+// request.open('GET', `https://restcountries.com/v3.1/name/${country}`)
+// request.send()
+
+const request = fetch(`https://restcountries.com/v3.1/name/portugal`) // The global fetch() method starts the process of fetching a resource from the network, returning a promise which is fulfilled once the response is available.
+console.log(request)
