@@ -44,7 +44,7 @@ const renderCountry = function(data, className = '') {
     <h3 class="country__name">${data.name.official}</h3>
     <h4 class="country__region">${data.continents[0]}</h4>
     <p class="country__row"><span>👫</span>${(+data.population / 1000000).toFixed(1)} people</p>
-    <p class="country__row"><span>🗣️</span>${data.languages.eng}</p>
+    <p class="country__row"><span>🗣️</span>${data.languages.heb}</p>
     <p class="country__row"><span>💰</span>${data.currencies.name}</p>
     </div>
     </article>
@@ -112,8 +112,8 @@ setTimeout(() => {
 //The Promise object represents the eventual completion (or failure) of an asynchronous operation and its resulting value.
 
 
-const request = fetch(`https://restcountries.com/v3.1/name/portugal`) // The global fetch() method starts the process of fetching a resource from the network, returning a promise which is fulfilled once the response is available.
-console.log(request)
+// const request = fetch(`https://restcountries.com/v3.1/name/portugal`) // The global fetch() method starts the process of fetching a resource from the network, returning a promise which is fulfilled once the response is available.
+// console.log(request)
 
 // const getCountryData = function(country) {
 //     fetch(`https://restcountries.com/v3.1/name/${country}`).then(function(response) {
@@ -126,8 +126,19 @@ console.log(request)
 // }
 
 const getCountryData = function(country) {
-    fetch(`https://restcountries.com/v3.1/name/${country}`)
-        .then((response) => response.json())
-        .then((data) => renderCountry(data[0]))
-}
-getCountryData('israel')
+        //country 1
+        fetch(`https://restcountries.com/v3.1/name/${country}`)
+            .then((response) => response.json())
+            .then((data) => {
+                renderCountry(data[0])
+                const neighbour = data[0].borders[0]
+
+                if (!neighbour) return;
+                // country 2
+                return fetch(`https://restcountries.com/v3.1/alpha/${neighbour}`)
+            })
+            .then(response => response.json())
+            .then(data => renderCountry(data, 'neighbour'))
+    }
+    // getCountryData('israel')
+getCountryData('germany')
