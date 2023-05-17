@@ -36,60 +36,60 @@ getCountryData('israel')
 getCountryData('USA')
 */
 
-/*
 const renderCountry = function(data, className = '') {
-    const html = `
+        const html = `
     <article class="country ${className}">
     <img class="country__img" src="${data.flags.png}" />
     <div class="country__data">
-      <h3 class="country__name">${data.name.official}</h3>
-      <h4 class="country__region">${data.continents[0]}</h4>
-      <p class="country__row"><span>👫</span>${(+data.population / 1000000).toFixed(1)} people</p>
-      <p class="country__row"><span>🗣️</span>${data.languages.eng}</p>
-      <p class="country__row"><span>💰</span>${data.currencies.name}</p>
+    <h3 class="country__name">${data.name.official}</h3>
+    <h4 class="country__region">${data.continents[0]}</h4>
+    <p class="country__row"><span>👫</span>${(+data.population / 1000000).toFixed(1)} people</p>
+    <p class="country__row"><span>🗣️</span>${data.languages.eng}</p>
+    <p class="country__row"><span>💰</span>${data.currencies.name}</p>
     </div>
-  </article>
+    </article>
     `;
-    countriesContainer.insertAdjacentHTML("beforeend", html);
-    countriesContainer.style.opacity = 1
-}
+        countriesContainer.insertAdjacentHTML("beforeend", html);
+        countriesContainer.style.opacity = 1
+    }
+    /*
 
-const getCountryAndNeighbour = function(country) {
+    const getCountryAndNeighbour = function(country) {
 
-    // Ajax call country 1
-    const request = new XMLHttpRequest()
-    request.open('GET', `https://restcountries.com/v3.1/name/${country}`)
-    request.send()
+        // Ajax call country 1
+        const request = new XMLHttpRequest()
+        request.open('GET', `https://restcountries.com/v3.1/name/${country}`)
+        request.send()
 
-    request.addEventListener('load', function() {
-        const [data] = JSON.parse(this.responseText)
-        console.log(data)
+        request.addEventListener('load', function() {
+            const [data] = JSON.parse(this.responseText)
+            console.log(data)
 
-        // Render country 1
-        renderCountry(data)
+            // Render country 1
+            renderCountry(data)
 
-        // Get neighbour country
-        const [neighbour] = data.borders
+            // Get neighbour country
+            const [neighbour] = data.borders
 
-        if (!neighbour) return;
+            if (!neighbour) return;
 
-        // Ajax call country 2
-        const request2 = new XMLHttpRequest()
-        request2.open('GET', `https://restcountries.com/v3.1/alpha/${neighbour}`)
-        request2.send()
+            // Ajax call country 2
+            const request2 = new XMLHttpRequest()
+            request2.open('GET', `https://restcountries.com/v3.1/alpha/${neighbour}`)
+            request2.send()
 
-        request2.addEventListener('load', function() {
-            const [data2] = JSON.parse(this.responseText)
-            console.log(data2)
+            request2.addEventListener('load', function() {
+                const [data2] = JSON.parse(this.responseText)
+                console.log(data2)
 
-            renderCountry(data2, 'neighbour')
+                renderCountry(data2, 'neighbour')
+            })
         })
-    })
-}
+    }
 
-getCountryAndNeighbour('usa')
-    // getCountryAndNeighbour('israel')
-*/
+    getCountryAndNeighbour('usa')
+        // getCountryAndNeighbour('israel')
+    */
 
 
 /*
@@ -111,9 +111,23 @@ setTimeout(() => {
 //* Promises and the fetch API
 //The Promise object represents the eventual completion (or failure) of an asynchronous operation and its resulting value.
 
-// const request = new XMLHttpRequest()
-// request.open('GET', `https://restcountries.com/v3.1/name/${country}`)
-// request.send()
 
 const request = fetch(`https://restcountries.com/v3.1/name/portugal`) // The global fetch() method starts the process of fetching a resource from the network, returning a promise which is fulfilled once the response is available.
 console.log(request)
+
+// const getCountryData = function(country) {
+//     fetch(`https://restcountries.com/v3.1/name/${country}`).then(function(response) {
+//         console.log(response)
+//         return response.json()
+//     }).then(function(data) {
+//         console.log(data)
+//         renderCountry(data[0])
+//     })
+// }
+
+const getCountryData = function(country) {
+    fetch(`https://restcountries.com/v3.1/name/${country}`)
+        .then((response) => response.json())
+        .then((data) => renderCountry(data[0]))
+}
+getCountryData('israel')
